@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"/></head>
+<body>
+  <input type="file" accept=".mp4" />
+  <button id="speed">Speed=1x</button>
+  <video controls />
+
+  <script>
+    const video = document.querySelector('video');
+    const file = document.querySelector('input[type=file]');
+    file.addEventListener('change', (e) => {
+      const movie = e.target.files[0];
+      video.src = URL.createObjectURL(movie);
+    })
+
+    const button = document.querySelector('button');
+    const speeds = [1.0, 0.5, 0.25, 0.125];
+    let currentSpeedId = 0;
+    button.addEventListener('click', (e) => {
+      currentSpeedId = (currentSpeedId + 1) % speeds.length;
+      const currentSpeed = speeds[currentSpeedId];
+      button.textContent = `Speed=${currentSpeed}x`;
+      video.playbackRate = currentSpeed;
+    })
+  </script>
+</body>
+</html>
